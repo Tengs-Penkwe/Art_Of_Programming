@@ -8,3 +8,10 @@ f((m,n,r,2)) &= \texttt{if } (n),  \texttt{ otherwise } (m, n, r, 3);\\
 f((m,n,p,3)) &= (n,p,p,1).\\
 \end{align*}
 ```
+
+1. Finiteness
+2. Definiteness
+3. Input
+4. Output
+
+? Effectiveness
