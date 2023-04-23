@@ -1,11 +1,9 @@
-gcd(X, 0, X).
-gcd(0, Y, Y).
+gcd(X, 0, X) :- !.
 
 gcd(X, Y, Result) :-
-  (X > Y -> 
+  (Y > X -> 
     gcd(Y, X, Result)
   ;
-    d is X div Y,
-    r is X mod Y,
-    gcd(d, r, Result)
+    R is X mod Y,
+    gcd(Y, R, Result)
   ).
