@@ -1,0 +1,15 @@
+** A simple MIXAL program to add 1 and 2
+    ORIG    3000
+ONE EQU     1
+TWO EQU     2
+SUM EQU     10
+    CON     1
+    STA     ONE
+    CON     2
+    STA     TWO
+    LDA     ONE
+    ADD     TWO
+    STA     SUM
+    HLT
+    END
+

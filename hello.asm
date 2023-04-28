@@ -1,0 +1,8 @@
+* HELLO WORLD
+PRINTER EQU  18
+START   OUT  HELLO(PRINTER)
+        HLT
+HELLO   ALF  HELLO
+        ALF   WORL
+        ALF  D
+        END  START
