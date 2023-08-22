@@ -248,8 +248,30 @@ Each of the following exercises states a problem that a computer programmer migh
 
 6. [26] Design an algorithm that computes the inversion table $b_1b_2. . . b_n$ corresponding to a given permutation $a_1a_2. . . a_n$ of ${1, 2, . . . , n}$, where the running time is essentially proportional to $n log n$ on typical computers.
 
+  #answer()[ ]
+
+7. Several other kinds of inversion tables can be defined, corresponding to a given permutation $a_1a_2. . . a_n$ of ${1, 2, . . . , n}$, besides the particular table $b_1b_2. . . b_n$ defined in the text; in this exercise we will consider three other types of inversion tables that arise in applications.\ Let $c_j$ be the number of inversions whose first component is $j$, that is, the number of elements to the right of $j$ that are less than $j$. [Corresponding to (1) we have the table 0 0 0 1 4 2 1 5 7; clearly $0 ≤ c_j < j$.] Let $B_j = b_(a_j)$ and $C_j = c_(a_j)$.\ Show that $0 ≤ B_j < j$ and $0 ≤ C_j ≤ n − j$, for $1 ≤ j ≤ n$; furthermore show that the permutation $a_1a_2. . . a_n$ can be determined uniquely when either $c_1c_2. . . c_n$ or $B_1B_2. . . B_n$ or $C_1C_2. . . C_n$ is given.
+
   #answer()[
-
-
+1. $B_j = b_(a_j)$, $b_(a_j)$ is the number of elements bigger than $a_j$ to the left, since there are only $j-1$ elements in the left $0 <= B_j <j$.
+2. $C_j = c_(a_j)$, $c_(a_j)$ is the number of elements smaller than $a_j$ to the right, since there are only $n-j$ elements in the right $0 <= C_j < n-j$.
+3. We know $C_j = c_(a_j)$, the projection between $j$ and $a_j$ is injective and surjective,so $C_j$ and $c_(a_j)$ can unqiuely determine each other. so did $B_j$ and $b_j$, since $a_j$ has unique $b_j$,
+4. We can show the algorithm generate $a_j$ from $C_1C_2...C_n$ is injective.
 ]
 
+9. [M21] Prove that, in the notation of exercise 7, the permutation $a_1a_2... a_n$ is an involution (that is, its own inverse) if and only if $b_j = C_j$ for $1 ≤ j ≤ n$.
+
+  #answer()[*Forward:* Since $a_(a_i) = i$, ]
+
+11. [M25] If $π = a_1a_2. . . a_n$ is a permutation of ${1, 2, . . . , n}$, let $ E(π) = {(a_i, a_j) | i < j, a_i > a_j} $ be the set of its inversions, and let $ macron(E)(π) = {(a_i, a_j) | i > j, a_i > a_j} $ be the non-inversions.\
+    a) Prove that $E(π)$ and $macron(E)(π)$ are transitive. (A set $S$ of ordered pairs is called _transitive_ if $(a, c)$ is in S whenever both $(a, b)$ and $(b, c)$ are in $S$.)\ b) Conversely, let $E$ be any transitive subset of $T = {(x, y) | 1 ≤ y < x ≤ n}$ whose complement $macron(E) = T \\ E$ is also transitive. Prove that there exists a permutation π such that $E(π) = E$. 
+
+  #answer()[a) if $(a_i, a_j)$ and $(a_j, a_k)$ are inside $E(pi)$, then $i < j < k$ and $a_i > a_j > a_k$, then $(a_i, a_k)$ is also inside. the same argument applies to $macron(E)(pi)$.\ 
+  b) For each number $x$, create a node; for each pair inside $macron(E)(pi)$ and $E(pi)$ like $(x, y)$, creat an edge $x -> y$. This is a directed graph, with all nodes connected each other.\
+  For such graph, if we can do topological sorting and get a unqiue result, because each node will have $n-1$ edge pointed to and pointed out, count the number $i$ it be pointed to, the order of this number is $i+1$.\ Here, I need to prove it's possible to sort it topologically, that is: it doesn't contain a loop.\
+  If a loop does exist, we arrange the nodes as $a_(i_1) -> a_(i_2) -> .. -> a_(i_j) -> a_(j_1) -> a_(j_2) -> ..  -> a_(i_1)$, here $i_j$ is increasive, $j_i$ is decreasive or vice versa, since $macron(E)$ and $E$ is transitive, we can eliminate all the internal nodes and get $a_(i_1) -> a_(i_j) -> a_(i_1)$ where $i_j > i_1$, this is impossible, beacuse there is only one edge between two nodes.
+]
+
+12. [M28] Continuing the notation of the previous exercise, prove that if $π_1$ and $π_2$ are permutations and if $E$ is the smallest transitive set containing $E(π_1) ∪ E(π_2)$, then E is transitive. [Hence, if we say $π_1$ is “above” $π_2$ whenever $E(π_1) ⊆ E(π_2)$, a lattice of permutations is defined; there is a unique “lowest” permutation “above” two given permutations. Figure 1 is the lattice diagram when $n = 4$.]
+
+  #answer()[Suppose we have $(a,b) in macron(E), (b,c) in macron(E) "but" (a, c) in E$, then ]
