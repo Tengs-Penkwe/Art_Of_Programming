@@ -1,5 +1,5 @@
 #import "template.typ": *
-#import "algo.typ": *
+#import "@preview/algo:0.3.1": algo, i, d, comment, code
 
 // Take a look at the file `template.typ` in the file panel
 // to customize this template and discover how it works.
