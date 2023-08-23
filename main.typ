@@ -272,6 +272,14 @@ Each of the following exercises states a problem that a computer programmer migh
   If a loop does exist, we arrange the nodes as $a_(i_1) -> a_(i_2) -> .. -> a_(i_j) -> a_(j_1) -> a_(j_2) -> ..  -> a_(i_1)$, here $i_j$ is increasive, $j_i$ is decreasive or vice versa, since $macron(E)$ and $E$ is transitive, we can eliminate all the internal nodes and get $a_(i_1) -> a_(i_j) -> a_(i_1)$ where $i_j > i_1$, this is impossible, beacuse there is only one edge between two nodes.
 ]
 
-12. [M28] Continuing the notation of the previous exercise, prove that if $π_1$ and $π_2$ are permutations and if $E$ is the smallest transitive set containing $E(π_1) ∪ E(π_2)$, then E is transitive. [Hence, if we say $π_1$ is “above” $π_2$ whenever $E(π_1) ⊆ E(π_2)$, a lattice of permutations is defined; there is a unique “lowest” permutation “above” two given permutations. Figure 1 is the lattice diagram when $n = 4$.]
+12. [M28] Continuing the notation of the previous exercise, prove that if $π_1$ and $π_2$ are permutations and if $E$ is the smallest transitive set containing $E(π_1) ∪ E(π_2)$, then $macron(E)$ is transitive. [Hence, if we say $π_1$ is “above” $π_2$ whenever $E(π_1) ⊆ E(π_2)$, a lattice of permutations is defined; there is a unique “lowest” permutation “above” two given permutations. Figure 1 is the lattice diagram when $n = 4$.]
 
-  #answer()[Suppose we have $(a,b) in macron(E), (b,c) in macron(E) "but" (a, c) in E$, then ]
+  #answer()[Suppose we have $(a, b) in macron(E), (b,c) in macron(E) "but" (a, c) in E$, there are 2 possible situations:
+  1. $(a, c) in E(pi_1) union E(pi_2)$, but this contradicts that $(a,b), (b,c) in macron(E)$
+  2. $(a, c) in.not E(pi_1) union E(pi_2)$, then suppose we have $(a, x) in E(pi_1)$ and $(x, c) in E(pi_2)$, then $ a > x > c$;because $(a, b) in macron(E)$ and $(b, c) in macron(E)$, then $a > b >c$\
+    2.1. if $b > x$ then $(b, x) in E(pi_1)$, then ${(b, x), (x, c)} subset E(pi_1) union E(pi_2)$ so $(b, c) in E$, contradicts.
+    2.2. if $b < x$ then $(b, x) in E(pi_1)$, same argument.
+  So it's impossible to have $E$ be the smallest transitive set containing $E(pi_1) union E(pi_2)$ while $macron(E)$ be non-transitive $qed$
+  ]
+
+13. 13. [M23 ] It is well known that half of the terms in the expansion of a determinant have a plus sign, and half have a minus sign. In other words, there are just as many permutations with an _even_ number of inversions as with an _odd_ number, when $n ≥ 2$. Show that, in general, the number of permutations having a number of inversions congruent to $t$ modulo $m$ is $n!/m$, regardless of the integer $t$, whenever $n ≥ m$.
