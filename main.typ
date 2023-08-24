@@ -10,10 +10,28 @@
   ),
 )
 
-// We generated the example code below so you can see how
-// your document will look. Go ahead and replace it with
-// your own content!
+#align(center)[= 1.2 Mathematicla Preliminaries]
 
+== 1.2.7 Harmonic Numbers
+$ H_n = 1 + 1/2 + 1/3 + ... + 1/n = sum_(k=1)^n 1/k, n>=0 $
+
+== 1.2.9 Generating Functions
+
+1. [M12] What is the generating function for the sequence $2, 5, 13, 35, . . . = ⟨2^n+3^n⟩$?
+  
+  #answer()[$
+  & (1+2x + 4x^2 + ...+2^n x^n) + (1+3x + 9x+... + 3^n x^n) \
+  &= 1/(1-2x) + 1/(1-3x)
+  $]
+
+3. [HM21] Differentiate the generating function (18) for $⟨H_n⟩$, and compare this with the generating function for $⟨sum^n_(k=0)H_k⟩$. What relation can you deduce?
+
+  #answer()[$
+  G'(z) & =  (ln 1/(1-z))/(1-z)^2 + 1/(1-z)^2 = 1 + 3z + 11/2 z^2 + ...  \
+  G(z) = 
+  $]
+
+#pagebreak()
 #align(center)[= 2.1 Introduction]
 
 1. In the situation depicted in (3), what's the value of (a) *SUIT(NEXT(TOP))*; (b)*NEXT(NEXT(NEXT(TOP)))*
@@ -282,4 +300,13 @@ Each of the following exercises states a problem that a computer programmer migh
   So it's impossible to have $E$ be the smallest transitive set containing $E(pi_1) union E(pi_2)$ while $macron(E)$ be non-transitive $qed$
   ]
 
-13. 13. [M23 ] It is well known that half of the terms in the expansion of a determinant have a plus sign, and half have a minus sign. In other words, there are just as many permutations with an _even_ number of inversions as with an _odd_ number, when $n ≥ 2$. Show that, in general, the number of permutations having a number of inversions congruent to $t$ modulo $m$ is $n!/m$, regardless of the integer $t$, whenever $n ≥ m$.
+13. [M23] It is well known that half of the terms in the expansion of a determinant have a plus sign, and half have a minus sign. In other words, there are just as many permutations with an _even_ number of inversions as with an _odd_ number, when $n ≥ 2$. Show that, in general, the number of permutations having a number of inversions congruent to $t$ modulo $m$ is $n!/m$, regardless of the integer $t$, whenever $n ≥ m$.
+
+  #answer()[
+  it means there are $n!/m$ permutations that have $b_i$ inversion such $b_i equiv t(mod m)$]
+
+14. [M24] (F. Franklin.) A partition of n into k distinct parts is a representation $n = p_1+ p_2+ · · · + p_k$, where $p_1 > p_2 > · · · > p_k> 0$. For example, the partitions of 7 into distinct parts are 7, 6 + 1, 5 + 2, 4 + 3, 4 + 2 + 1. Let $f_k(n)$ be the number of partitions of n into k distinct parts; prove that $sum_k (−1)^k f_k(n) = 0$, unless n has the form $(3j^2± j)\/2$, for some nonnegative integer $j$; in the latter case the sum is $(−1)^j$.
+
+15. [M23] Prove that (16) is the generating function for partitions into at most $n$ parts; that is, prove that the coefficient of $z^m "in" 1\/(1 − z)(1 − z^2) . . . (1 − z^n)$ is the number of ways to write $m = p_1 + p_2 + · · · + p_n$ with $p_1 ≥ p_2 ≥ · · · ≥ p_n$ ≥ 0.
+
+  #answer()[]
