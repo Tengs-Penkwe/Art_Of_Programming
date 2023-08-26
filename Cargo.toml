@@ -3,12 +3,9 @@ name = "Art_Of_Programming"
 version = "0.1.0"
 edition = "2021"
 
-
 [dependencies]
-
 rand = "*"
 
 [[bin]]
 name = "sort"
 path = "sort/sort.rs"
-
