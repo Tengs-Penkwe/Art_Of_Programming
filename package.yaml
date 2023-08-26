@@ -1,0 +1,35 @@
+name: TAOCP-Algo-Impl
+version: 0.1.0
+dependencies: []
+# system-ghc: true
+
+library:
+  source-dirs:
+    - sort_hs
+  exposed-modules: []
+    # - Parser
+    # - Codegen
+    # - Emit
+  dependencies: []
+    # - llvm-hs-pure 
+    # - mtl >= 2.1.3
+
+executable:
+  main: sort/Main.hs
+  dependencies:
+    - TAOCP-Algo-Impl
+    # - haskeline >= 0.7.1.2
+    # - llvm-hs     
+  # modules:
+  #   - Lexer
+
+# test-suite my-tests:
+#   type: exitcode-stdio-1.0
+#   main: test/Spec.hs
+#   dependencies:
+#     - Token
+
+# source-repository head
+#   type: git
+#   location: https://github.com/user/my-project.git
+
