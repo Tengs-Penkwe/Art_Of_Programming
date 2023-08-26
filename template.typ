@@ -1,6 +1,3 @@
-// The project function defines how your document looks.
-// It takes your content and some metadata and formats it.
-// Go ahead and customize it to your liking!
 #let project(title: "", authors: (), body) = {
   // Set the document's basic properties.
   set document(author: authors, title: title)
@@ -26,6 +23,14 @@
 
   // Main body.
   set par(justify: true)
+
+  show heading.where(
+    level: 1
+  ): it => text[
+    #set align(center)
+    #pagebreak(weak:true)
+    #smallcaps(it.body)
+  ]
 
   body
 }

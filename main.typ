@@ -10,10 +10,37 @@
   ),
 )
 
-#align(center)[= 1.2 Mathematicla Preliminaries]
+= 1.2 Mathematical Preliminaries
 
 == 1.2.7 Harmonic Numbers
 $ H_n = 1 + 1/2 + 1/3 + ... + 1/n = sum_(k=1)^n 1/k, n>=0 $
+
+$ H_oo^((r)) = 1/2 |B_r| (2pi)^r/(r!), space.quad "integer" r\/2 >= 1 $
+
+3. [M21] Generalize the argument used in the previous exercise to show that, for $r > 1$, the sum $H^((r))_n$ remains bounded for all $n$. Find an upper bound.
+
+  #answer()[$
+  H_(2^m-1)^((r)) & = 1^(-r) + (2^(-r) + 3^(-r)) + (2^(-2r) + 5^(-r) + 6^(-r) + 7^(-r)) ... \
+  & <= 1^(-r) + (2^(-r) + 2^(-r)) + 4 times 4^(-r) + ... \
+  & = sum_(k=0)^(m-1) 2^k/2^(k r) \ 
+  & = (2^((m-1)(1-r))-1)/(2^(1-r)-1)
+  $]
+
+4. [M21] Let $T(m, n) = H_m+ H_n− H_(m n)$. (a) Show that when $m$ or $n$ increases, $T(m, n)$ never increases (assuming that $m$ and $n$ are positive). (b) Compute the minimum and maximum values of $T(m, n)$ for $m, n > 0$.
+
+  #answer()[assume $m >= n$, $
+  T(m, n) &= sum_(k=0)^n 1/k - sum_(k=m)^(m n)1/k \
+  T(m+1, n) - T(m,n) & = sum_(k=m n)^(m n+n) 1/k - 1/m \
+  & < n times 1/(m n) - 1/m = 0 \
+  T(m, n+1) - T(m, n) &= 1/(n+1) - sum_(k=m n)^(m n+m)1/k \
+  & < 1/(n+1) - m times 1/(m(n+1)) = 0
+  $
+  Thus, I show that $T(m,n)$ decreases monotonically. 
+
+  When $m=n=1$, $T(m,n)_(max) = 1$
+  ]
+
+  #wrong()[What's the lower bound of $T(m,n)$?]
 
 == 1.2.9 Generating Functions
 
@@ -31,8 +58,7 @@ $ H_n = 1 + 1/2 + 1/3 + ... + 1/n = sum_(k=1)^n 1/k, n>=0 $
   G(z) = 
   $]
 
-#pagebreak()
-#align(center)[= 2.1 Introduction]
+= 2.1 Introduction
 
 1. In the situation depicted in (3), what's the value of (a) *SUIT(NEXT(TOP))*; (b)*NEXT(NEXT(NEXT(TOP)))*
 
@@ -310,3 +336,12 @@ Each of the following exercises states a problem that a computer programmer migh
 15. [M23] Prove that (16) is the generating function for partitions into at most $n$ parts; that is, prove that the coefficient of $z^m "in" 1\/(1 − z)(1 − z^2) . . . (1 − z^n)$ is the number of ways to write $m = p_1 + p_2 + · · · + p_n$ with $p_1 ≥ p_2 ≥ · · · ≥ p_n$ ≥ 0.
 
   #answer()[]
+
+== 5.1.2 Permutations of a Multiset
+
+$ binom(n, n_1\, n_2\, ...) = (n!)/(n_1!n_2!...) $
+
+*intercalation*
+
+= 5.2 Internal Sorting
+
