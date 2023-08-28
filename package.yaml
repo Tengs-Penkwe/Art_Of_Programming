@@ -5,12 +5,15 @@ dependencies: []
 
 library:
   source-dirs:
-    - sort_hs
-  exposed-modules: []
-    # - Parser
-    # - Codegen
+    - sort
+  exposed-modules: 
+    - Algorithms
+    - Test
     # - Emit
-  dependencies: []
+  dependencies: 
+    - base
+    - random
+    - time
     # - llvm-hs-pure 
     # - mtl >= 2.1.3
 
@@ -18,6 +21,7 @@ executable:
   main: sort/Main.hs
   dependencies:
     - TAOCP-Algo-Impl
+    - base
     # - haskeline >= 0.7.1.2
     # - llvm-hs     
   # modules:

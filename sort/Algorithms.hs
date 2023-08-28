@@ -1,5 +1,12 @@
 module Algorithms where
 
+import Data.List (sortOn)
+-- Counting Sort
+countSort :: Ord a => [a] -> [a]
+countSort arr =
+  let counts = [length [y | y <- arr, y < x] | x <- arr]
+  in map snd . sortOn fst $ zip counts arr
+
 -- Bubble Sort algorithm
 bubbleSort :: Ord a => [a] -> [a]
 bubbleSort xs = go xs (length xs)

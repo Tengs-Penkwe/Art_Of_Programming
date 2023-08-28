@@ -1,21 +1,35 @@
 module Main where
 
 import Algorithms
--- import Algorithms.BubbleSort
--- import Algorithms.QuickSort
--- import Algorithms.MergeSort
--- import Algorithms.InsertionSort
--- import Algorithms.SelectionSort
+import Test
+import Control.Monad(forM_)
 
--- import TestCorrectness
--- import TestPerformance
+-- List of sorting algorithms to test
+sortingAlgorithms :: [(String, [Int] -> [Int])]
+sortingAlgorithms = 
+  [ ("Counting Sort", countSort)
+  , ("Bubble Sort", bubbleSort)
+  -- add new sorting algorithms here
+  ]
 
+-- List sizes to test
+listSizes :: [Int]
+listSizes = [10000, 100000, 1000000, 10000000]
+
+-- Function to test all sorting algorithms for both correctness and performance
 main :: IO ()
 main = do
-    putStrLn "Testing correctness:"
-    -- testCorrectness
+  -- Testing for correctness
+  putStrLn "Correctness Tests:"
+  listForCorrectness <- generateRandomList 10000
+  forM_ sortingAlgorithms $ \(name, algo) -> do
+    putStrLn $ name ++ ": " ++ show (verifySort algo listForCorrectness)
+    
+  forM_ listSizes $ \size -> do
+    putStrLn $ "\nTesting with list size: " ++ show size
 
-    putStrLn "\nTesting performance:"
-    -- testPerformance
-
-
+    -- Testing for performance
+    putStrLn "Performance Tests:"
+    listForPerformance <- generateRandomList size
+    forM_ sortingAlgorithms $ \(name, algo) -> do
+      timeAlgorithm name algo listForPerformance
