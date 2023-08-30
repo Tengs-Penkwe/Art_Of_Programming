@@ -10,6 +10,8 @@
   ),
 )
 
+This is my answer to Donald E. Knuth's _The Art of Computer Programming_ 
+
 = 1.2 Mathematical Preliminaries
 
 == 1.2.7 Harmonic Numbers
@@ -344,4 +346,5 @@ $ binom(n, n_1\, n_2\, ...) = (n!)/(n_1!n_2!...) $
 *intercalation*
 
 = 5.2 Internal Sorting
+
 
