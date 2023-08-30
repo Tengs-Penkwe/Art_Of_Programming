@@ -347,4 +347,3 @@ $ binom(n, n_1\, n_2\, ...) = (n!)/(n_1!n_2!...) $
 
 = 5.2 Internal Sorting
 
-
