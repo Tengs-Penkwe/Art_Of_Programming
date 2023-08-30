@@ -1,7 +1,47 @@
-% :- use_module('./algorithms.pl').
-% :- consult('algorithms.pl').
-:- [algorithms].
+:- use_module('./algorithms.pl').
 
+% Define the list of algorithms to test
+algorithms_to_test([counting_sort]).
+
+% General test runner
+run_tests_for_algorithms:-
+  algorithms_to_test(Algorithms),
+  forall(member(Algo, Algorithms), run_sort_tests(Algo)).
+
+% Generalized test function
+run_sort(SortPredicate, UnsortedList, ExpectedSortedList) :-
+    call(SortPredicate, UnsortedList, Sorted),
+    assertion(Sorted = ExpectedSortedList).
+
+:- begin_tests(sort_tests).
+
+run_sort_tests(Algo):-
+    run_sort(Algo, [4, 1, 3, 2, 5], [1, 2, 3, 4, 5]),
+    run_sort(Algo, [], []),
+    run_sort(Algo, [4, 4, 3, 1, 2, 2], [1, 2, 2, 3, 4, 4]),
+    run_sort(Algo, [1], [1]),
+    run_sort(Algo, [2, 1], [1, 2]),
+    run_sort(Algo, [-3, -1, -4, -2], [-4, -3, -2, -1]),
+    run_sort(Algo, [3, -1, 4, -2, 0], [-2, -1, 0, 3, 4]),
+    run_sort(Algo, [1, 1, 1, 1, 1], [1, 1, 1, 1, 1]),
+    run_sort(Algo, [10000, 20000, 10000], [10000, 10000, 20000]),
+    run_sort(Algo, [5, 5], [5, 5]),
+    run_sort(Algo, [-2, -2, -2], [-2, -2, -2]),
+    run_sort(Algo, [0], [0]),
+    run_sort(Algo, [5, 4, 3, 2, 1], [1, 2, 3, 4, 5]),
+    run_sort(Algo, [3, 3, 2, 2, 1], [1, 2, 2, 3, 3]),
+    run_sort(Algo, [1,5,3,2,4,1,5,3,2,4,1,5,3,2,4], [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5]),
+    run_sort(Algo, [100, 200, 300, 100, 200, 300], [100, 100, 200, 200, 300, 300]),
+    run_sort(Algo, [23, 1, 45, 67, 89, 11, 8, 109, 21, 0], [0, 1, 8, 11, 21, 23, 45, 67, 89, 109]),
+    run_sort(Algo, [0, 0, 0, 0, 0, 1], [0, 0, 0, 0, 0, 1]),
+    run_sort(Algo, [0, -1, -1, 0, 0, -1], [-1, -1, -1, 0, 0, 0]),
+    run_sort(Algo, [-4, -4, -7, -15, -9, -4], [-15, -9, -7, -4, -4, -4]),
+    run_sort(Algo, [-9999, 9999, 0, -1, 1], [-9999, -1, 0, 1, 9999]),
+    run_sort(Algo, [9999, -9999, 9999, -9999], [-9999, -9999, 9999, 9999]),
+    run_sort(Algo, [100000, 200000, 100000], [100000, 100000, 200000]),
+    run_sort(Algo, [5, 5, 5, 3, 3, 3, 9, 9, 9], [3, 3, 3, 5, 5, 5, 9, 9, 9]).
+
+:- end_tests(sort_tests).
 :- begin_tests(get_order_tests).
 
 % Test with empty list should return 0
@@ -82,111 +122,6 @@ test("generate sorted list with unordered initial list") :-
 test("generate sorted list with all the same elements") :-
     algorithms:generate_sorted_list([0, 0, 0, 0], [4, 4, 4, 4], [4, 4, 4, 4]), !.
 :- end_tests(generate_sorted_list).
-:- begin_tests(counting_sort_tests).
-
-% Tests for get_count/3
-
-% Test counting_sort function with a list of unique elements
-test(counting_sort_unique) :-
-    counting_sort([4, 1, 3, 2, 5], Sorted), !,
-    Sorted = [1, 2, 3, 4, 5].
-
-% Test counting_sort function with an empty list
-test(counting_sort_empty) :-
-    counting_sort([], Sorted), !,
-    Sorted = [].
-
-% Test counting_sort function with duplicates
-test(counting_sort_duplicates) :-
-    counting_sort([4, 4, 3, 1, 2, 2], Sorted), !,
-    Sorted = [1, 2, 2, 3, 4, 4].
-
-% Test counting_sort function with a single element
-test(counting_sort_single_element) :-
-    counting_sort([1], Sorted), !,
-    Sorted = [1].
-
-% Test counting_sort function with two elements
-test(counting_sort_two_elements) :-
-    counting_sort([2, 1], Sorted), !,
-    Sorted = [1, 2].
-
-test(counting_sort_negatives) :-
-    counting_sort([-3, -1, -4, -2], Sorted),!,
-    Sorted = [-4, -3, -2, -1].
-
-test(counting_sort_mixed_neg_pos) :-
-    counting_sort([3, -1, 4, -2, 0], Sorted),!,
-    Sorted = [-2, -1, 0, 3, 4].
-
-test(counting_sort_repeating) :-
-    counting_sort([1, 1, 1, 1, 1], Sorted),!,
-    Sorted = [1, 1, 1, 1, 1].
-
-test(counting_sort_large_numbers) :-
-    counting_sort([10000, 20000, 10000], Sorted),!,
-    Sorted = [10000, 10000, 20000].
-
-test(counting_sort_single_duplicate) :-
-    counting_sort([5, 5], Sorted),!,
-    Sorted = [5, 5].
-
-test(counting_sort_all_same_neg) :-
-    counting_sort([-2, -2, -2], Sorted),!,
-    Sorted = [-2, -2, -2].
-
-test(counting_sort_with_zero) :-
-    counting_sort([0], Sorted),!,
-    Sorted = [0].
-
-test(counting_sort_descending) :-
-    counting_sort([5, 4, 3, 2, 1], Sorted),!,
-    Sorted = [1, 2, 3, 4, 5].
-
-test(counting_sort_multiple_duplicates) :-
-    counting_sort([3, 3, 2, 2, 1], Sorted),!,
-    Sorted = [1, 2, 2, 3, 3].
-
-test(counting_sort_large_list) :-
-    counting_sort([1,5,3,2,4,1,5,3,2,4,1,5,3,2,4], Sorted),!,
-    Sorted = [1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5].
-
-test(counting_sort_large_range) :-
-    counting_sort([100, 200, 300, 100, 200, 300], Sorted),!,
-    Sorted = [100, 100, 200, 200, 300, 300].
-
-test(counting_sort_random_order) :-
-    counting_sort([23, 1, 45, 67, 89, 11, 8, 109, 21, 0], Sorted),!,
-    Sorted = [0, 1, 8, 11, 21, 23, 45, 67, 89, 109].
-
-test(counting_sort_multiple_zeros) :-
-    counting_sort([0, 0, 0, 0, 0, 1], Sorted),!,
-    Sorted = [0, 0, 0, 0, 0, 1].
-
-test(counting_sort_negative_and_zero) :-
-    counting_sort([0, -1, -1, 0, 0, -1], Sorted),!,
-    Sorted = [-1, -1, -1, 0, 0, 0].
-
-test(counting_sort_all_negative) :-
-    counting_sort([-4, -4, -7, -15, -9, -4], Sorted),!,
-    Sorted = [-15, -9, -7, -4, -4, -4].
-
-test(counting_sort_largest_smallest) :-
-    counting_sort([-9999, 9999, 0, -1, 1], Sorted),!,
-    Sorted = [-9999, -1, 0, 1, 9999].
-
-test(counting_sort_large_small_combinations) :-
-    counting_sort([9999, -9999, 9999, -9999], Sorted),!,
-    Sorted = [-9999, -9999, 9999, 9999].
-
-test(counting_sort_multiple_large_numbers) :-
-    counting_sort([100000, 200000, 100000], Sorted),!,
-    Sorted = [100000, 100000, 200000].
-
-test(counting_sort_multiple_replicates) :-
-    counting_sort([5, 5, 5, 3, 3, 3, 9, 9, 9], Sorted),!,
-    Sorted = [3, 3, 3, 5, 5, 5, 9, 9, 9].
-:- end_tests(counting_sort_tests).
 
 % Run the tests
 :- run_tests.
