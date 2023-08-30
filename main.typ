@@ -1,14 +1,13 @@
 #import "template.typ": *
 #import "@preview/algo:0.3.1": algo, i, d, comment, code
 
-// Take a look at the file `template.typ` in the file panel
-// to customize this template and discover how it works.
 #show: project.with(
   title: "The Art of Computer Programming",
   authors: (
     "Tengs",
   ),
 )
+#show link: underline
 
 = 1.2 Mathematical Preliminaries
 
@@ -345,5 +344,49 @@ $ binom(n, n_1\, n_2\, ...) = (n!)/(n_1!n_2!...) $
 
 = 5.2 Internal Sorting
 
+2. [21] Show that Algorithm C works properly when equal keys are present. If $K_j = K_i$ and $j < i$, does $R_j$ come before or after $R_i$ in the final ordering?
 
+  #wrong[If there are equal keys inside the queue, then we can just sort on the pair $ (K_1, 1), (K_2, 2), ..., (K_N, N) $, then this algorithm is _stable_.]
 
+3. [21] Would Algorithm C still work properly if the test in step C4 were changed from “$K_i < K_j$” to “$K_i ≤ K_j$”?
+  
+  #answer[It would sort, but we need to generate the sorted list from end to beginning.]
+
+10. [25] Design an efficient algorithm that replaces the $N$ quantities $(R_1, ... , R_N)$ by $(R_(p(1)), . . . , R_(p(N)))$, respectively, given the values of $R_1, ... , R_N$ and the permutation $p(1) . . . p(N)$ of ${1, . . . , N}$. Try to avoid using excess memory space. (This problem arises if we wish to rearrange records in memory after an address table sort, without having enough room to store $2N$ records.)  
+
+  #answer[
+#algo(title: "Generat Sorted", parameters:("Origin", "Permut"))[
+  let $n <- mono("length")$(Replaced) \
+  let Replaced[n] $<- 0$ #comment[Initialize a list of length n] \
+  for $i in [1..n]$ #i\
+    let index $<-$ Permut$[i]$ \
+    Replaced[index] $<-$ Unsorted[i] #d\
+  return Replaced]<Algo5-2-10>
+  This algorithm have time-complexity $O(n)$ and space-complexity $O(n)$
+  ]
+
+12. [25] Design an efficient algorithm suitable for rearranging the records $R_1, . . . , R_N$ into sorted order, after a list sort (Fig. 7) has been completed. Try to avoid using excess memory space.
+  
+  #answer[I read the answer, and find it hard to understand, Knuth mixed too much thing unrelated to algorithm here. I'll just use #link(<Algo5-2-10>)[_the previous algorithm_] ]
+
+13. [27] Algorithm D requires space for $2N$ records $R_1, ... , R_N$ and $S_1, ... , S_N$. Show that it is possible to get by with only $N$ records $R_1, ... , R_N$, if a new unshuffling procedure is substituted for steps D5 and D6. (Thus the problem is to design an algorithm that rearranges $R_1, ... , R_N$ in place, based on the values of $mono("COUNT")[u], ... , mono("COUNT")[v]$ after step D4, without using additional memory space; this is essentially a generalization of the problem considered in exercise 10.)
+
+  #answer[We can generate the $S_1, ..., S_N$ after D3 and don't need to generate the accumulate array
+#algo(title: "Generat Sorted", parameters:("Count",))[
+  let Sorted $<-$ Array()\
+  for $i in$ Count: #i\
+    let num $<-$ Count[i]:\
+    if num > 0: #i \
+      Sorted.append(i)#d #d\
+  return Sorted]
+  because the index of $mono("COUNT")$ contains the value of element
+  ]
+
+ 
+=== 5.2.1 Sorting by insertion
+
+*Straight Insertion*:
+When meeting $R_j$, we assume $R_1, ..., R_(j-1)$ is sorted, so we just need to insert $R_j$ to the right place. The insertion takes $Theta(n)$ time, we can improve it by binary search and it takes $Theta(log n)$ time.
+But we need to worry about moving elements, if we use an array, it will take $Theta(n)$ time, if we use a linked list, the seeking will take $O(n)$ time.
+
+*Shell Sort*:
