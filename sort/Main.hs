@@ -5,17 +5,13 @@ import Test
 import Control.Monad(forM_)
 
 -- List of sorting algorithms to test
-sortingAlgorithms :: [(String, [Int] -> [Int])]
+sortingAlgorithms :: [(String, [Int] -> [Int], [Int])]
 sortingAlgorithms = 
-  [ ("Counting Sort", countSort)
-  , ("Straight Insertion Sort", straightInsertion)
-  , ("Bubble Sort", bubbleSort)
+  [ ("Counting Sort", countSort, [1024, 4096, 16384])
+  , ("Straight Insertion Sort", straightInsertion, [1024, 4096, 16384, 65536])
+  , ("Bubble Sort", bubbleSort, [1024, 4096, 16384])
   -- add new sorting algorithms here
   ]
-
--- List sizes to test
-listSizes :: [Int]
-listSizes = [10000, 100000, 1000000, 10000000, 100000000]
 
 -- Define some edge case lists
 edgeCases :: [[Int]]
@@ -50,19 +46,18 @@ edgeCases =
 main :: IO ()
 main = do
   -- Testing for correctness
-  putStrLn "Correctness Tests:"
+  putStrLn "\ESC[31;5mCorrectness Tests:\ESC[0m"
   listForCorrectness <- generateRandomList 10000
-  forM_ sortingAlgorithms $ \(name, algo) -> do
+  forM_ sortingAlgorithms $ \(name, algo, _) -> do
     let randomTestResult = verifySort algo listForCorrectness
     let edgeCaseTestResults = map (verifySort algo) edgeCases
     let allTestResults = all id (randomTestResult : edgeCaseTestResults)
     putStrLn $ name ++ ": " ++ show allTestResults
     
-  forM_ listSizes $ \size -> do
-    putStrLn $ "\nTesting with list size: " ++ show size
-
-    -- Testing for performance
-    putStrLn "Performance Tests:"
-    listForPerformance <- generateRandomList size
-    forM_ sortingAlgorithms $ \(name, algo) -> do
-      timeAlgorithm name algo listForPerformance
+  -- Testing for performance
+  putStrLn "\ESC[31;5mPerformance Tests:\ESC[0m"
+  forM_ sortingAlgorithms $ \(name, algo, listsizes) -> do
+    putStrLn $ "\nTesting: " ++ show name
+    forM_ listsizes $ \size -> do
+      listForPerformance <- generateRandomList size
+      timeAlgorithm algo listForPerformance

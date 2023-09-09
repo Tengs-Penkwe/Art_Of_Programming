@@ -15,10 +15,11 @@ verifySort algo lst =
 generateRandomList :: Int -> IO [Int]
 generateRandomList size = replicateM size randomIO
 
-timeAlgorithm :: Ord a => String -> ([a] -> [a]) -> [a] -> IO ()
-timeAlgorithm algorithmName algorithm unsortedList = do
+timeAlgorithm :: Ord a => ([a] -> [a]) -> [a] -> IO ()
+timeAlgorithm algorithm unsortedList = do
     start <- getCurrentTime
-    let _sorted = algorithm unsortedList
+    let sorted = algorithm unsortedList
+    sorted `seq` return ()      -- Ensure this part is executed in sequence so we can get the right result.
     end <- getCurrentTime
     let elapsedTime = diffUTCTime end start
-    putStrLn $ algorithmName ++ " took " ++ show elapsedTime
+    putStrLn $ show (length unsortedList) ++ "\t took " ++ show elapsedTime
