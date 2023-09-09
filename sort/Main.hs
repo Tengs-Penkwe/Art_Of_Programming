@@ -8,13 +8,14 @@ import Control.Monad(forM_)
 sortingAlgorithms :: [(String, [Int] -> [Int])]
 sortingAlgorithms = 
   [ ("Counting Sort", countSort)
+  , ("Straight Insertion Sort", straightInsertion)
   , ("Bubble Sort", bubbleSort)
   -- add new sorting algorithms here
   ]
 
 -- List sizes to test
 listSizes :: [Int]
-listSizes = [10000, 100000, 1000000, 10000000]
+listSizes = [10000, 100000, 1000000, 10000000, 100000000]
 
 -- Define some edge case lists
 edgeCases :: [[Int]]

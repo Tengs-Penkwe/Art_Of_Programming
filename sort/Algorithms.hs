@@ -7,6 +7,16 @@ countSort arr =
   let counts = [length [y | y <- arr, y < x] | x <- arr]
   in map snd . sortOn fst $ zip counts arr
 
+-- Straight Insertion Sort
+straightInsertion :: Ord a => [a] -> [a]
+straightInsertion = foldl insertSorted [] 
+  where
+    insertSorted :: Ord a => [a] -> a -> [a]
+    insertSorted sorted x
+      = let (lesser, greater) = span (< x) sorted
+        in lesser ++ [x] ++ greater
+  
+
 -- Bubble Sort algorithm
 bubbleSort :: Ord a => [a] -> [a]
 bubbleSort xs = go xs (length xs)
